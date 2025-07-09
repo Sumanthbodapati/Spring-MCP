@@ -30,40 +30,75 @@ The application provides a simple REST endpoint that accepts a text prompt and r
     spring.ai.openai.model=gpt-4 # Or any other model you have access to
     ```
 
-## Building and Running the Application
+## Project Structure
 
-This project includes a Gradle wrapper (`./gradlew` for Linux/macOS and `gradlew.bat` for Windows). It's recommended to use the wrapper to build and run the application, as it ensures version consistency.
+*   `/`: Contains the Spring Boot backend application (Gradle project).
+*   `/frontend`: Contains the React frontend application.
 
-1.  **Build the project:**
-    Open your terminal in the project's root directory and run:
+## Building and Running
+
+You need to run both the backend (Spring Boot) and the frontend (React) applications.
+
+### 1. Backend (Spring Boot API)
+
+The backend provides the AI interaction endpoint.
+
+*   **Prerequisites:** Java 17, OpenAI API Key (see Configuration section).
+*   **Build:**
+    Navigate to the project root directory (`/`) and run:
     ```bash
     ./gradlew build
     ```
-    This command will compile the code and package it into a JAR file.
-
-2.  **Run the application:**
-    After a successful build, you can run the application using:
+*   **Run:**
+    After a successful build, run:
     ```bash
     ./gradlew bootRun
     ```
-    Alternatively, you can run the executable JAR file created in the `build/libs/` directory:
+    Or run the JAR:
     ```bash
     java -jar build/libs/demo-0.0.1-SNAPSHOT.jar
     ```
-    The application will start, typically on `http://localhost:8080`.
+    The backend will typically start on `http://localhost:8080`.
+
+### 2. Frontend (React UI)
+
+The frontend provides a web interface to chat with the AI.
+
+*   **Prerequisites:** Node.js and npm (or yarn).
+*   **Setup:**
+    Navigate to the `frontend` directory:
+    ```bash
+    cd frontend
+    ```
+    Install dependencies:
+    ```bash
+    npm install
+    ```
+    (or `yarn install` if you prefer yarn)
+*   **Run:**
+    Once dependencies are installed, start the React development server:
+    ```bash
+    npm start
+    ```
+    (or `yarn start`)
+    This will usually open the application in your web browser at `http://localhost:3000`.
+
+**Important:** The Spring Boot backend application *must* be running for the frontend to successfully fetch AI responses.
 
 ## Usage
 
-Once the application is running, you can interact with the AI endpoint.
+1.  Ensure both the backend and frontend applications are running as described above.
+2.  Open your web browser and navigate to the frontend URL (typically `http://localhost:3000`).
+3.  Type your prompt into the input field and click "Send". The AI's response will appear below.
 
+You can still test the backend API directly using tools like `curl`:
 **Endpoint:** `GET /ai`
-**Query Parameter:** `prompt` (string) - The text prompt you want to send to the AI.
+**Query Parameter:** `prompt` (string)
 
 **Example using `curl`:**
 ```bash
 curl "http://localhost:8080/ai?prompt=Tell%20me%20a%20short%20story%20about%20a%20robot%20learning%20to%20paint"
 ```
-
 The server will respond with a plain text string containing the AI-generated content.
 
 ---
